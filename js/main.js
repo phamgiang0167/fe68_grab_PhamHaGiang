@@ -1,14 +1,18 @@
-document.getElementById('calculate').addEventListener('click', function(){
+document.getElementById("calculate").addEventListener('click', function(){
     action(this.id)
 })
-document.getElementById('printBill').addEventListener('click', function(){
+document.getElementById("printBill").addEventListener('click', function(){
     action(this.id)
 })
 
 function action(action){
+    console.log(action)
+    //get data
     let typeGrab = getGrabType()
     let distance = getDistance()
     let waitingTime = getWaitingTime()
+
+    //price table
     let price = {
         "grabCar": {
             "first": 8000,
@@ -29,6 +33,8 @@ function action(action){
             "waiting": 3500
         },
     }
+
+    //validate data
     if(!typeGrab || !distance || !waitingTime){
         alert("Một vài trường thiếu hoặc không hợp lệ!!!")
         document.getElementById('divThanhTien').style.display = 'none'
@@ -36,11 +42,22 @@ function action(action){
         return
     }
 
+    // declare a bill object 
+    /*Bill("price of distance 0 to 1",
+            "price of distance 1 to 19",
+            "price of distance more than 19",
+            distance,
+            waitting time)
+    */ 
     let bill = new Bill(price[typeGrab].first, price[typeGrab].second, price[typeGrab].third, price[typeGrab].waiting, distance, waitingTime)
+
+    // check options
     if(action == "calculate"){
+        // payment
         document.getElementById('divThanhTien').style.display = "block"
         document.getElementById('xuatTien').innerHTML = bill.getTotalPrice().toString()
     }else{
+        // print bill
         let billDetail = bill.getBillDetail()
         for (var key in billDetail) {
             if(key == "waiting"){
@@ -134,8 +151,12 @@ function Bill(priceFirst, priceSecond, priceThird, priceWaitingTime, totalDistan
         if(waitingTime > 3){
             billDetail.waiting.price = Math.floor(waitingTime/3)*priceWaitingTime
             billDetail.waiting.waitingTime = waitingTime
+        }else{
+            billDetail.waiting.price = 0
+            billDetail.waiting.waitingTime = waitingTime
         }
 
+        // total price
         billDetail.totalPrice = billDetail.first.price + 
                                 billDetail.second.price + 
                                 billDetail.third.price +
