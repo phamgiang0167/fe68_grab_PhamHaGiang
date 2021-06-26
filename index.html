@@ -82,14 +82,14 @@
 
 				<div class="wrap-contact100-form-btn">
 					<div class="contact100-form-bgbtn"></div>
-					<button type="button" class="contact100-form-btn" id="calculate">
+					<button type="button" class="contact100-form-btn" id="calculate" onclick="action(this)"> 
 						TÍNH TIỀN
 					</button>
 				</div>
 				<div class="wrap-contact100-form-btn">
 					<div class="contact100-form-bgbtn"></div>
 					<button type="button" class="contact100-form-btn" data-toggle="modal" data-target="#exampleModal"
-						id="printBill">
+						id="printBill" onclick="action(this)">
 						IN HÓA ĐƠN
 					</button>
 				</div>
@@ -114,21 +114,21 @@
 				</tr>
 				<tr>
 					<td>KM ĐẦU TIÊN</td>
-					<td id="stage_1"></td>
-					<td id="price_1"></td>
-					<td id="total_1"></td>
+					<td id="stage_first"></td>
+					<td id="price_first"></td>
+					<td id="total_first"></td>
 				</tr>
 				<tr>
 					<td>Từ 1km đến 19km</td>
-					<td id="stage_2"></td>
-					<td id="price_2"></td>
-					<td id="total_2"></td>
+					<td id="stage_second"></td>
+					<td id="price_second"></td>
+					<td id="total_second"></td>
 				</tr>
 				<tr>
 					<td>Từ 19km trở lên</td>
-					<td id="stage_3"></td>
-					<td id="price_3"></td>
-					<td id="total_3"></td>
+					<td id="stage_third"></td>
+					<td id="price_third"></td>
+					<td id="total_third"></td>
 				</tr>
 				<tr>
 					<td>Thời gian chờ</td>
@@ -137,7 +137,7 @@
 					<td id="total_waiting"></td>
 				</tr>
 				<tr>
-					<td colspan="4" id="total">TỔNG TIỀN:</td>
+					<td colspan="4" >TỔNG TIỀN: <span id="total"></span> đ</td>
 				</tr>
 			</table>
 		</div>
