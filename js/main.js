@@ -6,11 +6,18 @@ document.getElementById("printBill").addEventListener('click', function(){
 })
 
 function action(action){
-    console.log(action)
     //get data
     let typeGrab = getGrabType()
-    let distance = getDistance()
-    let waitingTime = getWaitingTime()
+    let distance = getById('km')
+    let waitingTime = getById('time')
+
+    //validate data
+    if(!typeGrab || !distance || !waitingTime){
+        alert("Một vài trường thiếu hoặc không hợp lệ!!!")
+        document.getElementById('divThanhTien').style.display = 'none'
+        document.getElementById('bill').style.display = 'none'
+        return
+    }
 
     //price table
     let price = {
@@ -33,15 +40,7 @@ function action(action){
             "waiting": 3500
         },
     }
-
-    //validate data
-    if(!typeGrab || !distance || !waitingTime){
-        alert("Một vài trường thiếu hoặc không hợp lệ!!!")
-        document.getElementById('divThanhTien').style.display = 'none'
-        document.getElementById('bill').style.display = 'none'
-        return
-    }
-
+    
     // declare a bill object 
     /*Bill("price of distance 0 to 1",
             "price of distance 1 to 19",
@@ -89,20 +88,12 @@ function getGrabType(){
     return false
 }
 
-function getDistance(){
-    var distance = document.querySelector('input[id="km"]')
-    if(distance.value < 0 || !isNumber(distance.value)){
+function getById(id){
+    var element = document.querySelector(`input[id=${id}]`)
+    if(element.value <= 0 || !isNumber(element.value)){
         return false
     }
-    return distance.value
-}
-
-function getWaitingTime(){
-    var time = document.querySelector('input[id="time"]')
-    if(time.value < 0 || !isNumber(time.value)){
-        return false
-    }
-    return time.value
+    return element.value
 }
 
 function isNumber(n) { 
@@ -110,7 +101,13 @@ function isNumber(n) {
 } 
 
 
-function Bill(priceFirst, priceSecond, priceThird, priceWaitingTime, totalDistance, waitingTime){
+function Bill(_priceFirst, _priceSecond, _priceThird, _priceWaitingTime, _totalDistance, _waitingTime){
+    let priceFirst = _priceFirst
+    let priceSecond = _priceSecond
+    let priceThird = _priceThird
+    let priceWaitingTime = _priceWaitingTime
+    let totalDistance = _totalDistance
+    let waitingTime = _waitingTime
     let billDetail = function(){
         let billDetail = {
             first: {},
